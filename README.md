@@ -6,8 +6,7 @@
 
 使用el-menu + vue-router实现<br/>
 
-<pre>
-<xmp>
+```
 <div id="sideBar">
             <!--<ul>
                 <router-link to="/manifests" tag="li">日消费明细</router-link>
@@ -23,7 +22,7 @@
             </el-menu>
         </div>
   </xmp>        
-</pre>        
+```       
 
 注释掉部分是最开始时候没有采用el-menu组件导航，而是使用了vue-router自己的路由导航。
 
@@ -31,7 +30,7 @@
 # 路由
 
 路由部分对应JS代码：
-<pre>
+```
 const router = new VueRouter({
     routes: [
         { name: "manifests", path: "/manifests", component: Manifests },
@@ -41,14 +40,15 @@ const router = new VueRouter({
     ]
 });
 
-</pre>
+```
 
 # 操作
 
 这里以日消费明细组件为例来详细介绍，里边囊括了CRUD。
 
 ## 组件定义
-<pre>
+
+```
 /// <reference path="index.js" />
 /// <reference path="vue.js" />
 /// <reference path="vue-resource.js" />
@@ -213,9 +213,10 @@ const Manifests = {
         }
     }
 }
-</pre>
+```
 ## 组件对应模板定义
-<pre>
+
+```
 <script type="text/x-template" id="manifests">
         <div>
             <div>
@@ -267,9 +268,11 @@ const Manifests = {
             </div>
         </div>
     </script>
-</pre>    
+```
+
 ## 查询条件
-<pre>    
+
+```
     <div>
                 开始日期：
                 <el-date-picker v-model="start" type="date" placeholder="选择日期"></el-date-picker>
@@ -278,11 +281,11 @@ const Manifests = {
                 <el-button type="primary" size="small" v-on:click="fetchData" icon="search">查  询</el-button>
                 <el-button type="primary" size="small" v-on:click="add" icon="plus">添  加</el-button>
             </div>
-</pre>
+```
 ## 查询操作
 
 这里关于事件处理绑定，官网推荐简写的@click，但这里没有采用，而是使用了完整绑定V-on：click，因为考虑到以后可能会和Razor整合，@符可能会冲突，查询JS：
-<pre>
+```
 fetchData: function () {
             this.manifests = [];
             this.$http.get("http://localhost:1500/api/Manifests/paged", {
@@ -299,11 +302,12 @@ fetchData: function () {
                       })
                       .catch(response => this.$alert(response.body.Message, "日消费明细", { type: "error" }));
         }
-</pre>        
+```      
 API请求采用了Vue开源社区的vue-resource，简单轻便，再搭配ES6 Promise，写起来很顺手。
 
 ## 弹出框
-<pre>
+
+```
 <el-dialog v-bind:title="title" v-bind:close-on-click-modal="false" v-model="showOperateManifest" v-on:close="dialogClosed">
                     <el-form v-bind:model="manifest" v-bind:rules="rules" ref="formManifest" label-position="left" label-width="80px">
                         <el-form-item label="日  期" prop="Date">
@@ -321,9 +325,9 @@ API请求采用了Vue开源社区的vue-resource，简单轻便，再搭配ES6 P
                         </el-form-item>
                     </el-form>
                 </el-dialog>
-</pre>         
+```      
 保存：
-<pre>
+```
 save: function () {
             this.$refs.formManifest.validate(valid => {
                 if (valid) {
@@ -370,19 +374,19 @@ save: function () {
                 }
             });
         }
-</pre>        
+```      
         
  ## 分页
  
- <pre>
+```
 <el-pagination v-bind:current-Page="pageIndex" v-bind:page-size="pageSize" :total="total"
                                layout="total,sizes,prev,pager,next,jumper" v-bind:page-sizes="pageSizes"
                                v-on:size-change="sizeChange" v-on:current-change="pageIndexChange">
 
-                </el-pagination>
-</pre>
+ </el-pagination>
+```
 页索引及分页大小变动事件处理：
-<pre>
+```
 sizeChange: function (pageSize) {
             this.pageSize = pageSize;
             this.fetchData();
@@ -391,4 +395,4 @@ sizeChange: function (pageSize) {
             this.pageIndex = pageIndex;
             this.fetchData();
         }
-</pre>
+```
