@@ -7,6 +7,7 @@
 使用el-menu + vue-router实现<br/>
 
 <pre>
+<xmp>
 <div id="sideBar">
             <!--<ul>
                 <router-link to="/manifests" tag="li">日消费明细</router-link>
@@ -21,6 +22,7 @@
                 <el-menu-item index="yearly">年消费清单</el-menu-item>
             </el-menu>
         </div>
+  </xmp>        
 </pre>        
 
 注释掉部分是最开始时候没有采用el-menu组件导航，而是使用了vue-router自己的路由导航。
